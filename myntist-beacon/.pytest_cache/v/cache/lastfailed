@@ -1,0 +1,13 @@
+{
+  "tests/test_coverage_round4.py::TestTelemetryExporterSQLite::test_stub_mode_get_recent_field_telemetry_returns_empty": true,
+  "tests/test_lambda_handlers.py::TestExportParquetHandler::test_records_to_parquet_empty_returns_bytes": true,
+  "tests/test_coverage_boost.py::TestPolicyEngineExtended::test_ast_safe_compare_gte_equal": true,
+  "tests/test_coverage_boost.py::TestPolicyEngineExtended::test_ast_safe_compare_lte": true,
+  "tests/test_coverage_boost.py::TestPolicyEngineExtended::test_ast_safe_compare_neq": true,
+  "tests/test_coverage_boost.py::TestPolicyEngineExtended::test_policy_evaluate_returns_dict_with_admitted": true,
+  "tests/test_coverage_boost.py::TestPolicyEngineExtended::test_policy_evaluate_low_S_denied": true,
+  "tests/test_coverage_boost.py::TestDatabaseExtended::test_get_session_local_idempotent": true,
+  "tests/test_coverage_boost.py::TestRotationHandlerLine47::test_check_key_age_none_key_returns_false": true,
+  "tests/test_coverage_boost.py::TestEd25519SignerLine119::test_sign_returns_none_on_signing_exception": true,
+  "tests/test_coverage_boost.py::TestSurvivabilityEngineLine70::test_compute_with_extreme_values_clamps_s": true
+}
