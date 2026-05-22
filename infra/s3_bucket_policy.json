@@ -1,0 +1,100 @@
+{
+  "_comment": "S3 bucket policy for myntist-beacon-src-225161979546. Only the CodeBuild service role (and root for admin) may perform write/policy-mutating actions. Deploy role and ECS task role have read-only access. Apply via: python3 myntist-fixed/infra/apply_s3_policy.py. OPERATOR: confirm the CodeBuild service role ARN before applying: aws codebuild batch-get-projects --names myntist-beacon-build --query 'projects[0].serviceRole' --output text --region us-east-1",
+  "_write_allowlist": [
+    "arn:aws:iam::225161979546:root",
+    "arn:aws:iam::225161979546:role/myntist-codebuild-role"
+  ],
+  "_read_allowlist": [
+    "arn:aws:iam::225161979546:role/myntist-beacon-ECSTaskExecutionRole-wkynpdsTQzt3"
+  ],
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowRootFullAdmin",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::225161979546:root"
+      },
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::myntist-beacon-src-225161979546",
+        "arn:aws:s3:::myntist-beacon-src-225161979546/*"
+      ]
+    },
+    {
+      "Sid": "AllowCodeBuildWriteAndRead",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::225161979546:role/myntist-codebuild-role"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetBucketPolicy"
+      ],
+      "Resource": [
+        "arn:aws:s3:::myntist-beacon-src-225161979546",
+        "arn:aws:s3:::myntist-beacon-src-225161979546/*"
+      ]
+    },
+    {
+      "Sid": "AllowDeployAndTaskRoleReadOnly",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::225161979546:role/myntist-beacon-ECSTaskExecutionRole-wkynpdsTQzt3"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:s3:::myntist-beacon-src-225161979546",
+        "arn:aws:s3:::myntist-beacon-src-225161979546/*"
+      ]
+    },
+    {
+      "Sid": "DenyWriteToNonCodeBuildPrincipals",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": [
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:PutBucketPolicy",
+        "s3:DeleteBucketPolicy",
+        "s3:PutBucketAcl",
+        "s3:PutObjectAcl"
+      ],
+      "Resource": [
+        "arn:aws:s3:::myntist-beacon-src-225161979546",
+        "arn:aws:s3:::myntist-beacon-src-225161979546/*"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalArn": [
+            "arn:aws:iam::225161979546:root",
+            "arn:aws:iam::225161979546:role/myntist-codebuild-role"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "DenyInsecureTransport",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::myntist-beacon-src-225161979546",
+        "arn:aws:s3:::myntist-beacon-src-225161979546/*"
+      ],
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
