@@ -1,0 +1,89 @@
+{
+  "document": "RFC-002 Compliance Execution Log",
+  "generated_at": "2026-05-07T14:59:28Z",
+  "system": "Myntist Sovereign Beacon",
+  "schema_version": "2.0",
+  "environment": "local",
+  "aws_account_id": "225161979546",
+  "aws_region": "us-east-1",
+  "git_sha": "not-set",
+  "summary": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0
+  },
+  "tests": [
+    {
+      "test_id": "T1",
+      "section": "F",
+      "title": "Baseline field-state computation",
+      "result": "PASS",
+      "detail": "S=0.910000 expected=0.910000 field_state=stable",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T2",
+      "section": "F",
+      "title": "\u03b4S resets to zero after engine restart",
+      "result": "PASS",
+      "detail": "delta_S after reset=0.0",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T3",
+      "section": "F",
+      "title": "TELEMETRY_WINDOW_HOURS default >= 720 hours",
+      "result": "PASS",
+      "detail": "source_default=720 env_default=720",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T4",
+      "section": "G",
+      "title": "status.json contains all required RFC-002 G fields",
+      "result": "PASS",
+      "detail": "all fields present",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T5",
+      "section": "G",
+      "title": "Ed25519 sign \u2192 verify round-trip + tamper detection",
+      "result": "PASS",
+      "detail": "sig_prefix=ed25519:HYXJB6KYSyDq verify_correct_bytes=True verify_tampered_bytes=False",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T5-supp",
+      "section": "G",
+      "title": "HMAC-SHA256 absent from public signing module (kms_signer.py)",
+      "result": "PASS",
+      "detail": "HMAC correctly absent from kms_signer",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T6",
+      "section": "H",
+      "title": "S(t) decreases monotonically as Q (coherence degradation) increases",
+      "result": "PASS",
+      "detail": "Q=[1.0, 1.5, 2.0, 3.0, 5.0] \u2192 S=[1.0, 0.6667, 0.5, 0.3333, 0.2]",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T7",
+      "section": "H",
+      "title": "S(t) decreases monotonically as |\u2207\u03c6| increases toward \u03c0/2",
+      "result": "PASS",
+      "detail": "\u2207\u03c6=[0.0, 0.3927, 0.7854, 1.1781, 1.5608] \u2192 S=[1.0, 0.9239, 0.7071, 0.3827, 0.01]",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    },
+    {
+      "test_id": "T8",
+      "section": "H",
+      "title": "KCP 7-invariant chain passes after 2 key rotations",
+      "result": "PASS",
+      "detail": "all_pass=True failing_invariants=[]",
+      "timestamp_utc": "2026-05-07T14:59:25Z"
+    }
+  ]
+}
